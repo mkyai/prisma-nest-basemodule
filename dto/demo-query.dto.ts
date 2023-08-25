@@ -5,14 +5,14 @@ import { PaginationDto } from "src/common/dto/pagination.dto";
 
 export class DemoQueryDto extends PaginationDto {
   @ApiProperty({
-    enum: Prisma.BaseScalarFieldEnum,
+    enum: Prisma.DemoScalarFieldEnum,
     default: "id",
     description: "Specify the ordering column",
   })
   @IsOptional()
   @ApiPropertyOptional()
-  @IsEnum(Prisma.BaseScalarFieldEnum)
-  readonly orderAt?: Prisma.BaseScalarFieldEnum;
+  @IsEnum(Prisma.DemoScalarFieldEnum)
+  readonly orderAt?: Prisma.DemoScalarFieldEnum;
 
   @ApiProperty({
     type: String,
