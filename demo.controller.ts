@@ -15,7 +15,7 @@ import { DemoService } from "./demo.service";
 import { CreateDemoDto } from "./dto/create-demo.dto";
 import { DemoQueryDto } from "./dto/demo-query.dto";
 import { UpdateDemoDto } from "./dto/update-demo.dto";
-const { demo: summary } = summaryData;
+const { demo: summary }: any = summaryData;
 const _ = { summary };
 
 @ApiController()
