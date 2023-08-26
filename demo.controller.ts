@@ -33,13 +33,13 @@ export class DemoController {
   }
 
   @ApiGet(_)
-  findOne(@Param() { id }: IdParamDto, @AuthUser() user: User) {
-    return this.service.findOne(+id, user);
+  paginate(@Query() query: DemoQueryDto, @AuthUser() user: User) {
+    return this.service.paginate(query, user);
   }
 
   @ApiGet(_)
-  paginate(@Query() query: DemoQueryDto, @AuthUser() user: User) {
-    return this.service.paginate(query, user);
+  findOne(@Param() { id }: IdParamDto, @AuthUser() user: User) {
+    return this.service.findOne(+id, user);
   }
 
   @ApiPatch(_)

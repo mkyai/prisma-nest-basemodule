@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { Demo, PrismaClient, User } from "@prisma/client";
+import { Demo, Prisma, PrismaClient, User } from "@prisma/client";
 import { pagination } from "src/common/extenders/common.extender";
 import { PaginationResult } from "src/common/interfaces/pagination.interface";
 import { CreateDemoDto } from "./dto/create-demo.dto";
@@ -26,7 +26,11 @@ export class DemoService {
       page,
       perPage,
       orderBy,
-      where: {},
+      where: {
+        OR: Object.keys(Prisma.DemoOrderByRelevanceFieldEnum).map((key) => ({
+          [key]: { contains: search || "" },
+        })),
+      },
     })) as unknown as PaginationResult<Demo>;
   }
 
