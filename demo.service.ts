@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { Demo, Prisma, PrismaClient, User } from "@prisma/client";
+import { Demo, Prisma, PrismaClient, User as PrismaUser } from "@prisma/client";
 import { pagination } from "src/common/extenders/common.extender";
 import { PaginationResult } from "src/common/interfaces/pagination.interface";
 import { CreateDemoDto } from "./dto/create-demo.dto";
@@ -10,17 +10,17 @@ import { UpdateDemoDto } from "./dto/update-demo.dto";
 export class DemoService {
   constructor(private prisma: PrismaClient) {}
 
-  async create(data: CreateDemoDto, user: User): Promise<Demo> {
+  async create(data: CreateDemoDto, user: PrismaUser): Promise<Demo> {
     return await this.prisma.demo.create({ data });
   }
 
-  async findAll(user: User): Promise<Demo[]> {
+  async findAll(user: PrismaUser): Promise<Demo[]> {
     return await this.prisma.demo.findMany();
   }
 
   async paginate(
     { page, perPage, orderBy, search }: DemoQueryDto,
-    user: User
+    user: PrismaUser
   ): Promise<PaginationResult<Demo>> {
     return (await this.prisma.$extends(pagination).demo.paginate({
       page,
@@ -34,19 +34,19 @@ export class DemoService {
     })) as unknown as PaginationResult<Demo>;
   }
 
-  async findOne(id: number, user: User): Promise<Demo> {
+  async findOne(id: number, user: PrismaUser): Promise<Demo> {
     return await this.prisma.demo.findUniqueOrThrow({ where: { id } });
   }
 
-  async update(id: number, data: UpdateDemoDto, user: User): Promise<Demo> {
+  async update(id: number, data: UpdateDemoDto, user: PrismaUser): Promise<Demo> {
     return await this.prisma.demo.update({ where: { id }, data });
   }
 
-  async set(id: number, user: User): Promise<Demo> {
+  async set(id: number, user: PrismaUser): Promise<Demo> {
     return await this.prisma.demo.update({ where: { id }, data: {} });
   }
 
-  async remove(id: number, user: User): Promise<void> {
+  async remove(id: number, user: PrismaUser): Promise<void> {
     await this.prisma.demo.delete({ where: { id } });
   }
 }
