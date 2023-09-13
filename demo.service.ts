@@ -27,6 +27,7 @@ export class DemoService {
       perPage,
       orderBy,
       where: {
+        //@ts-ignore
         OR: Object.keys(Prisma.DemoOrderByRelevanceFieldEnum).map((key) => ({
           [key]: { contains: search || "" },
         })),
